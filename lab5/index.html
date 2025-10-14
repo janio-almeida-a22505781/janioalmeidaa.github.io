@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="form">
+      <ol style="width: 400px; margin: auto; font-size: 20px">
+        <li id="item1">Passa por aqui!</li>
+        <li id="item2">
+          <div
+            style="
+              display: flex;
+              align-content: center;
+              gap: 5px;
+              margin-top: auto;
+            ">
+            <p
+              id="item2Text"
+              style="margin: 0px">
+              Escolhe uma cor!
+            </p>
+            <!-- Botões com data attributes -->
+            <button
+              class="color"
+              data-color="purple"
+              type="button">
+              Purple
+            </button>
+            <button
+              class="color"
+              data-color="orange"
+              type="button">
+              Orange
+            </button>
+            <button
+              class="color"
+              data-color="teal"
+              type="button">
+              Teal
+            </button>
+          </div>
+        </li>
+        <li id="item3">
+          <input
+            id="item3Input"
+            type="text"
+            oninput="randomColor()" />
+        </li>
+        <li id="item4">
+          <div>
+            <select id="colorSelect">
+              <option value="">Escolha uma cor</option>
+              <option value="lightblue">Light Blue</option>
+              <option value="lightgreen">Light Green</option>
+              <option value="lightpink">Light Pink</option>
+              <option value="lightyellow">Light Yellow</option>
+            </select>
+          </div>
+        </li>
+        <li id="item5">
+          <h1>0</h1>
+          <button id="btnIncrementar">Incrementar</button>
+          <button id="btnResetar">Resetar</button>
+        </li>
+
+        <li id="item6">
+          <input
+            id="nome"
+            type="text"
+            placeholder="Insira o seu nome"
+            required />
+          <input
+            id="idade"
+            type="number"
+            placeholder="Insira a sua idade"
+            required />
+          <input
+            type="submit"
+            value="Enviar" />
+
+          <p id="mensagem"></p>
+        </li>
+        <li id="item7">
+          <h2 id="auto-counter-display">0</h2>
+        </li>
+      </ol>
+    </form>
+  </body>
+  <script>
+    const colorsArray = [
+      'red',
+      'blue',
+      'pink',
+      'green',
+      'grey',
+      'black',
+      'white',
+      'cyan',
+      'orange',
+      'brown',
+    ]
+
+    const form = document.querySelector('#form')
+    const item1 = document.querySelector('#item1')
+    const item2 = document.querySelector('#item2')
+    const item2Text = document.querySelector('#item2Text')
+    const item3 = document.querySelector('#item3')
+    const item3Input = document.querySelector('#item3Input')
+    const item4 = document.querySelector('#item4')
+    const item5 = document.querySelector('#item5')
+
+    let globalColor
+    let globalCounter = 0
+
+    const originalText = 'Passa por aqui!'
+    const hoverText = 'Obrigado por passares.'
+
+    item1.addEventListener('mouseenter', () => {
+      item1.textContent = hoverText
+    })
+
+    item1.addEventListener('mouseleave', () => {
+      item1.textContent = originalText
+    })
+
+    document.querySelectorAll('button.color').forEach((button) => {
+      button.addEventListener('click', () => {
+        const color = button.dataset.color
+        item2.style.color = color
+      })
+    })
+
+    randomColor = () => {
+      var randomIndex = Math.floor(Math.random() * colorsArray.length)
+      var selectedColor = colorsArray[randomIndex]
+
+      item3Input.style.backgroundColor = selectedColor
+    }
+
+    colorSelect.onchange = function () {
+      document.querySelector('body').style.backgroundColor = this.value
+      globalColor = this.value
+    }
+
+    const contadorElemento = document.querySelector('h1')
+    const btnIncrementar = document.querySelector('#btnIncrementar')
+    const btnResetar = document.querySelector('#btnResetar')
+
+    if (!localStorage.getItem('counter')) {
+      localStorage.setItem('counter', 0)
+    }
+
+    contadorElemento.textContent = localStorage.getItem('counter')
+
+    function incrementar() {
+      let contador = parseInt(localStorage.getItem('counter'))
+      contador++
+      localStorage.setItem('counter', contador)
+      contadorElemento.textContent = contador
+    }
+
+    function resetar() {
+      localStorage.setItem('counter', 0)
+      contadorElemento.textContent = 0
+    }
+
+    btnIncrementar.addEventListener('click', incrementar)
+    btnResetar.addEventListener('click', resetar)
+
+    document.querySelector('form').onsubmit = (e) => {
+      e.preventDefault()
+      const nome = document.querySelector('#nome').value
+      const idade = document.querySelector('#idade').value
+
+      const mensagem = `Olá, o ${nome} tem ${idade}!`
+      document.querySelector('#mensagem').textContent = mensagem
+    }
+
+    const STORAGE_KEY_AUTO = 'autoCounterValue'
+
+    if (!localStorage.getItem(STORAGE_KEY_AUTO)) {
+      localStorage.setItem(STORAGE_KEY_AUTO, 0)
+    }
+
+    const autoCounterDisplay = document.querySelector('#auto-counter-display')
+    autoCounterDisplay.textContent = localStorage.getItem(STORAGE_KEY_AUTO)
+
+    function incrementAutoCounter() {
+      let autoValue = parseInt(localStorage.getItem(STORAGE_KEY_AUTO))
+      autoValue++
+      localStorage.setItem(STORAGE_KEY_AUTO, autoValue)
+      autoCounterDisplay.textContent = autoValue
+    }
+
+    const autoCounterInterval = setInterval(incrementAutoCounter, 1000)
+  </script>
+</html>
