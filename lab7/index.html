@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Store</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Dev Store</h1>
+    <nav>
+      <ul>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#cesto">Cesto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="produtos">
+      <h2>Produtos</h2>
+
+      <section class="opcoes-produtos">
+        <label for="tipo">Tipo:</label>
+        <select id="tipo">
+          <option value="">Todos</option>
+          <option value="t-shirt">T-shirts</option>
+          <option value="caneca">Canecas</option>
+          <option value="Meias">Meias</option>
+        </select>
+
+        <label for="ordenar">Ordenar por:</label>
+        <select id="ordenar">
+          <option value="">Padrão</option>
+          <option value="asc">Crescente</option>
+          <option value="desc">Decrescente</option>
+        </select>
+
+        <label for="busca">Pesquisar:</label>
+        <input type="search" id="busca" placeholder="Pesquisar produto...">
+      </section>
+
+      <section id="lista-produtos"></section>
+    </section>
+
+    <section id="cesto">
+      <h2>Cesto</h2>
+      <section id="lista-cesto"></section>
+
+      <form id="form-compra">
+        <p><strong id="total-cesto">Custo total: €0.00</strong></p>
+        <p>
+          <label for="estudante">És estudante do DEISI?</label>
+          <input type="checkbox" id="estudante">
+        </p>
+        <p>
+          <label for="cupao">Cupão de desconto:</label>
+          <input type="text" id="cupao">
+        </p>
+        <button type="submit">Comprar</button>
+      </form>
+
+      <section id="resultado-compra"></section>
+    </section>
+  </main>
+
+  <footer>
+    <p>©2025 - Made in DIW</p>
+  </footer>
+</body>
+</html>
